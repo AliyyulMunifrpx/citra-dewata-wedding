@@ -28,13 +28,6 @@ export default function Footer() {
         {/* CTA & BACK TO TOP */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <Link
-            href="#contact"
-            rel="noopener noreferrer"
-            className="px-8 py-4 bg-second text-black font-sans text-xs uppercase tracking-[0.2em] font-bold rounded-full hover:bg-white transition-colors duration-300"
-          >
-            Book Consultation
-          </Link>
-          <Link
             href="#top"
             className="group flex items-center gap-4 text-xs font-sans uppercase tracking-[0.2em] text-white/70 hover:text-second transition-colors duration-300 p-2"
           >
