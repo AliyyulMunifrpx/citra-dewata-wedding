@@ -4,12 +4,10 @@ import { information } from "../data/information.js";
 export default function Footer() {
   const footerData = {
     navLinks: [
-      { name: "About Us", href: "#about" },
-      { name: "Services", href: "#services" },
+      { name: "Home", href: "#home" },
+      { name: "Weddings", href: "#weddings" },
       { name: "Packages", href: "#packages" },
-      { name: "Testimonials", href: "#testimonials" },
-      { name: "FAQ", href: "#faq" },
-      { name: "Contact", href: "#contact" },
+      { name: "Vendors", href: "#vendors" },
     ],
   };
 
@@ -30,7 +28,7 @@ export default function Footer() {
         {/* CTA & BACK TO TOP */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <Link
-            href='#contact'
+            href="#contact"
             rel="noopener noreferrer"
             className="px-8 py-4 bg-second text-black font-sans text-xs uppercase tracking-[0.2em] font-bold rounded-full hover:bg-white transition-colors duration-300"
           >

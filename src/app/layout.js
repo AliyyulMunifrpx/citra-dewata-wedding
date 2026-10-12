@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "../../components/footer.jsx";
 import Navbar from "../../components/navbar.jsx";
+import WhatsAppButton from "../../components/whatsapp-button.jsx"; // 1. Import komponen
 import { information } from "../../data/information.js";
 
 const geistSans = Geist({
@@ -120,13 +121,16 @@ export default function RootLayout({ children }) {
         antialiased
       `}
     >
-      <body className="min-h-full flex flex-col bg-primary text-white">
+      <body className="min-h-full flex flex-col bg-primary text-white relative">
         <Navbar />
 
         {/* 'overflow-x-hidden' is set on main to prevent horizontal overflow without breaking window scroll */}
         <main className="flex-1 overflow-x-hidden">{children}</main>
 
         <Footer id="footer" />
+
+        {/* 2. Tombol WA melayang dipasang di sini */}
+        <WhatsAppButton />
       </body>
     </html>
   );
