@@ -9,7 +9,7 @@ export default function WhatsAppButton() {
 
   // Pesan default saat membuka WA
   const message = encodeURIComponent(
-    "Hello Escala Planner, I would like to inquire about your wedding planning services.",
+    `Hello ${information.name}, I would like to inquire about your wedding planning services.`,
   );
 
   const waUrl = `https://wa.me/${cleanPhone}?text=${message}`;
