@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { information } from "../data/information.js";
 
 export default function PackagesSection() {
   const packages = [
@@ -50,8 +50,12 @@ export default function PackagesSection() {
     },
   ];
 
+  // Ambil dan bersihkan nomor WhatsApp dari file information
+  const rawPhone = information.whatsapp || information.phone || "";
+  const cleanPhone = rawPhone.replace(/\D/g, "");
+
   return (
-    <section className="w-full bg-primary text-white px-4 md:px-8 pt-28 flex flex-col gap-16">
+    <div className="w-full bg-primary text-white px-4 md:px-8 pt-28 flex flex-col gap-16">
       {/* HEADER SECTION */}
       <h2 className="text-3xl md:text-5xl font-normal text-second text-center">
         Curated Packages
@@ -59,64 +63,74 @@ export default function PackagesSection() {
 
       {/* PACKAGES GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-stretch">
-        {packages.map((pkg, index) => (
-          <div
-            key={index}
-            className={`relative flex flex-col justify-between p-4 md:p-8 lg:p-12 bg-white/5 border transition-all duration-500 gap-8 overflow-hidden ${
-              pkg.isPopular
-                ? "border-second shadow-2xl lg:-translate-y-4"
-                : "border-white/10 hover:border-second/50"
-            }`}
-          >
-            {/* TAG HIGHLIGHT UNTUK PAKET FAVORIT */}
-            {pkg.isPopular && (
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-second text-primary font-sans text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 z-10">
-                Most Preferred
-              </div>
-            )}
+        {packages.map((pkg, index) => {
+          // Bikin pesan otomatis berdasarkan nama paket & tier
+          const message = encodeURIComponent(
+            `Hello ${information.name}, I would like to inquire about the ${pkg.name} (${pkg.tier}) package.`,
+          );
+          const waUrl = `https://wa.me/${cleanPhone}?text=${message}`;
 
-            {/* KONTEN ATAS */}
-            <div className="flex flex-col gap-8 pt-2">
-              <div className="flex flex-col gap-2">
-                <span className="font-serif text-xs text-second uppercase tracking-[0.2em]">
-                  {pkg.tier}
-                </span>
-                <h3 className="font-serif text-2xl text-white font-normal tracking-wide">
-                  {pkg.name}
-                </h3>
-              </div>
-
-              <p className="font-sans text-sm text-white/70 leading-relaxed min-h-[48px]">
-                {pkg.subtitle}
-              </p>
-
-              <div className="w-full h-[1px] bg-white/10" />
-
-              {/* FITUR PAKET */}
-              <ul className="flex flex-col gap-4 font-sans text-xs lg:text-sm text-white/80">
-                {pkg.features.map((feature, fIdx) => (
-                  <li key={fIdx} className="flex items-start gap-4">
-                    <span className="text-second mt-1 text-xs">✦</span>
-                    <span className="leading-relaxed">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* TOMBOL INQUIRE / CTA */}
-            <Link
-              href="#contact"
-              className={`w-full py-4 text-center font-sans text-xs uppercase tracking-[0.2em] transition-all duration-300 block ${
+          return (
+            <div
+              key={index}
+              className={`relative flex flex-col justify-between p-4 md:p-8 lg:p-12 bg-white/5 border transition-all duration-500 gap-8 overflow-hidden ${
                 pkg.isPopular
-                  ? "bg-second text-primary font-semibold hover:bg-white"
-                  : "border border-white/20 text-white hover:border-second hover:text-second"
+                  ? "border-second shadow-2xl lg:-translate-y-4"
+                  : "border-white/10 hover:border-second/50"
               }`}
             >
-              Inquire Package
-            </Link>
-          </div>
-        ))}
+              {/* TAG HIGHLIGHT UNTUK PAKET FAVORIT */}
+              {pkg.isPopular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-second text-primary font-sans text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 z-10">
+                  Most Preferred
+                </div>
+              )}
+
+              {/* KONTEN ATAS */}
+              <div className="flex flex-col gap-8 pt-2">
+                <div className="flex flex-col gap-2">
+                  <span className="font-serif text-xs text-second uppercase tracking-[0.2em]">
+                    {pkg.tier}
+                  </span>
+                  <h3 className="font-serif text-2xl text-white font-normal tracking-wide">
+                    {pkg.name}
+                  </h3>
+                </div>
+
+                <p className="font-sans text-sm text-white/70 leading-relaxed min-h-[48px]">
+                  {pkg.subtitle}
+                </p>
+
+                <div className="w-full h-[1px] bg-white/10" />
+
+                {/* FITUR PAKET */}
+                <ul className="flex flex-col gap-4 font-sans text-xs lg:text-sm text-white/80">
+                  {pkg.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-start gap-4">
+                      <span className="text-second mt-1 text-xs">✦</span>
+                      <span className="leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* TOMBOL INQUIRE / CTA WHATSAPP */}
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full py-4 text-center font-sans text-xs uppercase tracking-[0.2em] transition-all duration-300 block ${
+                  pkg.isPopular
+                    ? "bg-second text-primary font-semibold hover:bg-white"
+                    : "border border-white/20 text-white hover:border-second hover:text-second"
+                }`}
+              >
+                Inquire Package
+              </a>
+            </div>
+          );
+        })}
       </div>
-    </section>
+    </div>
   );
 }
