@@ -107,7 +107,7 @@ export default function ServicesSection() {
             className="relative group bg-white/5 border border-white/10 p-4 md:p-8 flex flex-col gap-8 transition-colors duration-500 hover:border-second/50 overflow-hidden"
           >
             {/* BINGKAI FOTO EDITORIAL */}
-            <div className="relative w-full aspect-[16/9] bg-white/5 border border-white/10 overflow-hidden">
+            <div className="relative w-full aspect-[2/1] bg-white/5 border border-white/10 overflow-hidden">
               <Image
                 src={item.image}
                 alt={item.title}
